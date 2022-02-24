@@ -1,11 +1,29 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			//Your data structures, A.K.A Entities
+			agenda: [],
+			addAgenda: [],
+			editAgenda: []
 		},
 		actions: {
-			//(Arrow) Functions that update the Store
-			// Remember to use the scope: scope.state.store & scope.setState()
+			getData: () => {
+				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Angelo_maiele")
+					.then(res => res.json())
+					.then(dataJson => setStore(dataJson))
+					.catch(err => console.log(err));
+			},
+			onChange: e => {
+				const newValue = e.target.value;
+				setStore(newValue);
+			},
+			addCon: newContact => {
+				//get the store
+				const newCon = getStore().addAgenda;
+				newCon.push(newContact);
+
+				//reset the global store
+				setStore({ agenda: newCon });
+			}
 		}
 	};
 };
