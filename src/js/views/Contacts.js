@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import { ContactCard } from "../component/ContactCard.js";
 import { Modal } from "../component/Modal";
 
-export const Contacts = () => {
+export const Contacts = props => {
 	const { store, actions } = useContext(Context);
 	const [state, setState] = useState({
 		showModal: false

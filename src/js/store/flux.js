@@ -2,27 +2,43 @@ const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
 			agenda: [],
-			addAgenda: [],
-			editAgenda: []
+			contact: []
 		},
 		actions: {
 			getData: () => {
 				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Angelo_maiele")
 					.then(res => res.json())
-					.then(dataJson => setStore(dataJson))
+					.then(dataJson => setStore({ agenda: dataJson }))
 					.catch(err => console.log(err));
 			},
-			onChange: e => {
-				const newValue = e.target.value;
-				setStore(newValue);
-			},
-			addCon: newContact => {
+
+			addAgenda: (name, adrress, number, email) => {
+				fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						agenda_slug: "Angelo_maiele",
+						name: name,
+						adrress: adrress,
+						number: number,
+						email: email
+					})
+				})
+					.then(res => res.json())
+					.then(() => {
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Angelo_maiele").then(res =>
+							res.json().then(data => {
+								setStore({ agenda: data });
+							})
+						);
+					});
+
 				//get the store
-				const newCon = getStore().addAgenda;
-				newCon.push(newContact);
+				//const newCon = getStore().agenda;
+				//newCon.push(newContact);
 
 				//reset the global store
-				setStore({ agenda: newCon });
+				//setStore({ agenda: newCon });
 			}
 		}
 	};
