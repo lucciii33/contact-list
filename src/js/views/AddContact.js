@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const AddContact = () => {
-	const [contact, setContact] = useState({ name: "", adrress: "", number: "", email: "" });
+	const [contact, setContact] = useState({ name: "", address: "", phone: "", email: "" });
 	const { store, actions } = useContext(Context);
 	const handleChange = e => {
 		setContact({ ...contact, [e.target.name]: e.target.value });
@@ -24,7 +24,7 @@ export const AddContact = () => {
 						/>
 					</div>
 					<div className="form-group">
-						<label>adreess</label>
+						<label>email</label>
 						<input
 							type="email"
 							name="email"
@@ -37,7 +37,7 @@ export const AddContact = () => {
 						<label>Phone</label>
 						<input
 							type="phone"
-							name="number"
+							name="phone"
 							className="form-control"
 							placeholder="Enter phone"
 							onChange={handleChange}
@@ -47,7 +47,7 @@ export const AddContact = () => {
 						<label>Address</label>
 						<input
 							type="text"
-							name="email"
+							name="address"
 							className="form-control"
 							placeholder="Enter address"
 							onChange={handleChange}
@@ -57,7 +57,7 @@ export const AddContact = () => {
 					<button
 						type="button"
 						className="btn btn-primary form-control"
-						onClick={() => actions.addAgenda(contact.name, contact.adrress, contact.number, contact.email)}>
+						onClick={() => actions.addAgenda(contact)}>
 						save
 					</button>
 

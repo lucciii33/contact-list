@@ -7,7 +7,8 @@ import { Modal } from "../component/Modal";
 export const Contacts = props => {
 	const { store, actions } = useContext(Context);
 	const [state, setState] = useState({
-		showModal: false
+		showModal: false,
+		deleteCard: null
 	});
 
 	return (
@@ -24,7 +25,7 @@ export const Contacts = props => {
 							? store.agenda.map((item, index) => {
 									return (
 										<ContactCard
-											onDelete={() => setState({ showModal: true })}
+											onDelete={() => setState({ showModal: true, deleteCard: null })}
 											key={index}
 											agenda={item}
 										/>
@@ -34,7 +35,15 @@ export const Contacts = props => {
 					</ul>
 				</div>
 			</div>
-			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} />
+			<Modal
+				show={state.showModal}
+				id={state.deleteCard}
+				onClose={() => setState({ showModal: false, deleteCard: null })}
+				deleteContact={() => {
+					actions.deleteContact(state.deleteCard);
+					setState({ showModal: false, deleteCard: null });
+				}}
+			/>
 		</div>
 	);
 };

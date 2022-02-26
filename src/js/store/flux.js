@@ -1,8 +1,7 @@
-const getState = ({ getStore, setStore }) => {
+const getState = ({ getStore, setStore, getActions }) => {
 	return {
 		store: {
-			agenda: [],
-			contact: []
+			agenda: []
 		},
 		actions: {
 			getData: () => {
@@ -12,25 +11,22 @@ const getState = ({ getStore, setStore }) => {
 					.catch(err => console.log(err));
 			},
 
-			addAgenda: (name, adrress, number, email) => {
+			addAgenda: contact => {
+				console.log(contact);
 				fetch("https://assets.breatheco.de/apis/fake/contact/", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						agenda_slug: "Angelo_maiele",
-						name: name,
-						adrress: adrress,
-						number: number,
-						email: email
+						full_name: contact.name,
+						address: contact.address,
+						phone: contact.phone,
+						email: contact.email
 					})
 				})
 					.then(res => res.json())
 					.then(() => {
-						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Angelo_maiele").then(res =>
-							res.json().then(data => {
-								setStore({ agenda: data });
-							})
-						);
+						getActions().getData();
 					});
 
 				//get the store
@@ -39,6 +35,35 @@ const getState = ({ getStore, setStore }) => {
 
 				//reset the global store
 				//setStore({ agenda: newCon });
+			},
+
+			deleteAgenda: deleContact => {
+				console.log(deleContact);
+				fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					method: "DELETE",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						agenda_slug: "Angelo_maiele",
+						full_name: contact.name,
+						address: contact.address,
+						phone: contact.phone,
+						email: contact.email
+					})
+				});
+			},
+			editAgenda: deleContact => {
+				console.log(deleContact);
+				fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					method: "PUT",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						agenda_slug: "Angelo_maiele",
+						full_name: contact.name,
+						address: contact.address,
+						phone: contact.phone,
+						email: contact.email
+					})
+				});
 			}
 		}
 	};
