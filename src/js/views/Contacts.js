@@ -25,7 +25,7 @@ export const Contacts = props => {
 							? store.agenda.map((item, index) => {
 									return (
 										<ContactCard
-											onDelete={() => setState({ showModal: true, deleteCard: null })}
+											onDelete={() => setState({ showModal: true, deleteCard: item.id })}
 											key={index}
 											agenda={item}
 										/>

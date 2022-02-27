@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
@@ -35,7 +35,7 @@ export const Modal = props => {
 							Oh no!
 						</button>
 
-						<button className="btn btn-primary" onClick={() => props.deleteContact()}>
+						<button className="btn btn-primary" onClick={() => actions.deleteContact(props.id)}>
 							Do it!
 						</button>
 					</div>
@@ -51,7 +51,8 @@ export const Modal = props => {
 Modal.propTypes = {
 	history: PropTypes.object,
 	onClose: PropTypes.func,
-	show: PropTypes.bool
+	show: PropTypes.bool,
+	id: PropTypes.string
 };
 
 /**

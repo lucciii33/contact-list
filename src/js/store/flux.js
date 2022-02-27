@@ -39,16 +39,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 
 			deleteAgenda: deleContact => {
 				console.log(deleContact);
-				fetch("https://assets.breatheco.de/apis/fake/contact/", {
-					method: "DELETE",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						agenda_slug: "Angelo_maiele",
-						full_name: contact.name,
-						address: contact.address,
-						phone: contact.phone,
-						email: contact.email
-					})
+				fetch("https://assets.breatheco.de/apis/fake/contact/", id, {
+					method: "DELETE"
 				});
 			},
 			editAgenda: deleContact => {
