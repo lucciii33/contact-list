@@ -7,6 +7,7 @@ export const AddContact = () => {
 	const { store, actions } = useContext(Context);
 	const handleChange = e => {
 		setContact({ ...contact, [e.target.name]: e.target.value });
+		console.log(contact);
 	};
 	return (
 		<div className="container">
@@ -54,12 +55,14 @@ export const AddContact = () => {
 						/>
 					</div>
 
-					<button
-						type="button"
-						className="btn btn-primary form-control"
-						onClick={() => actions.addAgenda(contact)}>
-						save
-					</button>
+					<Link className="" to="/">
+						<button
+							type="button"
+							className="btn btn-primary form-control"
+							onClick={() => actions.addAgenda(contact)}>
+							save
+						</button>
+					</Link>
 
 					<Link className="mt-3 w-100 text-center" to="/">
 						or get back to contacts

@@ -35,7 +35,7 @@ export const Modal = props => {
 							Oh no!
 						</button>
 
-						<button className="btn btn-primary" onClick={() => actions.deleteContact(props.id)}>
+						<button className="btn btn-primary" onClick={() => actions.deleteAgenda(props.id)}>
 							Do it!
 						</button>
 					</div>

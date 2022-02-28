@@ -1,7 +1,8 @@
 const getState = ({ getStore, setStore, getActions }) => {
 	return {
 		store: {
-			agenda: []
+			agenda: [],
+			contactId: null
 		},
 		actions: {
 			getData: () => {
@@ -27,35 +28,41 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.then(res => res.json())
 					.then(() => {
 						getActions().getData();
-					});
-
-				//get the store
-				//const newCon = getStore().agenda;
-				//newCon.push(newContact);
-
-				//reset the global store
-				//setStore({ agenda: newCon });
+					})
+					.catch(err => console.log(err));
 			},
 
 			deleteAgenda: deleContact => {
 				console.log(deleContact);
-				fetch("https://assets.breatheco.de/apis/fake/contact/", id, {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${deleContact}`, {
 					method: "DELETE"
-				});
+				})
+					.then(data => {
+						getActions().getData();
+						console.log(data.json());
+					})
+					.catch(err => console.log(err));
 			},
-			editAgenda: deleContact => {
-				console.log(deleContact);
-				fetch("https://assets.breatheco.de/apis/fake/contact/", {
+			editAgenda: edit => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${getStore().contactId}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						agenda_slug: "Angelo_maiele",
-						full_name: contact.name,
-						address: contact.address,
-						phone: contact.phone,
-						email: contact.email
+						full_name: edit.name,
+						address: edit.address,
+						phone: edit.phone,
+						email: edit.email
 					})
-				});
+				})
+					.then(data => {
+						getActions().getData();
+						console.log(data.json());
+					})
+					.catch(err => console.log(err));
+			},
+			setId: id => {
+				setStore({ contactId: id });
 			}
 		}
 	};
